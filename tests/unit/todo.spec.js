@@ -1,20 +1,25 @@
-import {mount} from '@vue/test-utils'
+import Store from '@/store/index.js'
+import { mount } from '@vue/test-utils'
 import Todolist from '@/components/Todo.vue'
 
 describe('Todolist.vue', () => {
-    let wrapper;
+   
+    let wrapper = mount(Todolist, {
+        global: {
+          plugins: [Store]
+        }
+      })
 
-    it('should render correct contents', () => {
-        wrapper = mount(Todolist); 
+    it('Should render correct contents', () => {
         expect(wrapper.find('#newTodo').element.placeholder).toBe('Add new task')
     })
 
-    it('should set correct default data', () => {
-        expect(wrapper.vm.todos).toEqual([]);
+    it('Should set correct default data', () => {
+        expect(wrapper.vm.todos).toEqual([])
         expect(wrapper.vm.newTodo).toEqual('');
     })
 
-    describe('user populates the text input field', () => {
+    describe('User populates the text input field', () => {
         let input;
 
         beforeEach(() => {
@@ -23,13 +28,13 @@ describe('Todolist.vue', () => {
             input.trigger('input');
         })
 
-        it('should update "newTodo"', () => {
+        it('Should update "newTodo"', () => {
             expect(wrapper.vm.newTodo).toEqual('New Todo');
         })
 
-        describe('and press Enter', () => {
+        describe('And press Enter', () => {
 
-            it('should add a new todo to "todos"', () => {
+            it('Should add a new todo to "todos"', () => {
                 input.trigger('keyup.enter');
                 expect(wrapper.vm.todos).toEqual([{
                     "completed" : false,
@@ -37,17 +42,18 @@ describe('Todolist.vue', () => {
                     "title": "New Todo"
                 }])
             })
-            it('should get the number of tasks', () => {
+            it('Should get the number of tasks', () => {
                 expect(wrapper.vm.remaining).toEqual(1);
             })
 
-            it('should be in the singular', () => {
+            it('Should be in the singular', () => {
                 expect(wrapper.vm.pluralize).toEqual('Task');
             })
         })
+    })
 
-        describe('and completed todo', () => {
-            it('should completed todo', () => {
+        describe('User clicks on the button completed a task', () => {
+            it('Should completed the task', () => {
                 const checkbox = wrapper.find('.toggle');
                 checkbox.trigger("click");
                 expect(wrapper.vm.todos).toEqual([{
@@ -58,12 +64,12 @@ describe('Todolist.vue', () => {
             })
         })
 
-        describe('and delete todo', () => {
-            it('should delete the todo', async () => {
+        describe('User click on the button delete', () => {
+            it('Should delete the task', async () => {
                 const deleteButton = wrapper.find(".destroy");
                 await deleteButton.trigger("click");
                 expect(wrapper.vm.todos).toEqual([]);
             })
         })
-    })
+    
 });

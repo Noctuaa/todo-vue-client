@@ -26,51 +26,49 @@
 </template>
 
 <script>
-let storageKey = 'todos_vuejs_3';
+	import store from '../store/index.js'
+	import Vuex from 'vuex'
+	let storageKey = 'todos_vuejs_3';
 	export default {
 		data() {
 			return {
-				todos: [],
 				newTodo: '',
 			}
 		},
 
 		methods: {
 
+			...Vuex.mapActions({
+				addTodoStore: 'addTodo',
+				deleteTodoStore: 'deleteTodo'
+			}),
+
 			addTodo() {
 				if (this.newTodo !== "") {
-					this.newTodo = this.newTodo.charAt(0).toUpperCase() + this.newTodo.slice(1); // First letter of a string uppercase
-
-					this.todos.push({
-						id: this.todos.length,
-						title: this.newTodo,
-						completed: false
-					});
-
+					// First letter of a string uppercase
+					this.newTodo = this.newTodo.charAt(0).toUpperCase() + this.newTodo.slice(1); 
+					this.addTodoStore(this.newTodo);
 					this.newTodo = "";
 				}
 
 			},
 
 			deleteTodo(todo) {
-				this.todos.splice(this.todos.indexOf(todo), 1);
+				this.deleteTodoStore(todo);
 			}
 		},
 
 		computed: {
+			...Vuex.mapGetters([
+				'todos',
+				'remaining'
+			]),
 			/**
 			 * Pluralize if there is more than one task to do.
 			 */
 			pluralize() {
 				return this.remaining <= 1 ? 'Task' : 'Tasks';
 			},
-
-			/**
-			 * Return the number of tasks to do.
-			 */
-			remaining() {
-				return this.todos.filter(todo => !todo.completed).length;
-			}
 		},
 
 		
@@ -90,7 +88,7 @@ let storageKey = 'todos_vuejs_3';
 			/**
 			 * Get todos in localStorage.
 			 */
-			this.todos = JSON.parse(localStorage.getItem(storageKey) || "[]");
+			store.state.todos = JSON.parse(localStorage.getItem(storageKey) || "[]");
 		}
 
 	}
