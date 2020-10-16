@@ -6,20 +6,33 @@
 		<input type="text" name="newTodo" id="newTodo" placeholder="Add new task" v-model="newTodo"
 			@keyup.enter="addTodo">
 		<div class="todoslist">
-			<ul :style="{margin: !todos.length ? 0 : ''}">
-				<li v-for="todo in todos" :key="todo.id" :data-testid="todo.id">
-					<input class="toggle" type="checkbox" v-model="todo.completed">
-					<label>
-						{{todo.title}}
-					</label>
-					<button class="destroy" @click="deleteTodo(todo)"></button>
-				</li>
-			</ul>
+			<div class="wrapper_task">
+				<ul :style="{margin: !todos.length ? 0 : ''}">
+					<li v-for="todo in filteredTodo" :key="todo.id" :data-testid="todo.id">
+						<input class="toggle" type="checkbox" v-model="todo.completed">
+						<label>
+							{{todo.title}}
+						</label>
+						<button class="destroy" @click="deleteTodo(todo)"></button>
+					</li>
+				</ul>
+			</div>
 			<footer v-show="todos.length" v-cloak>
 				<span class="todo_count">
-					<strong>{{remaining}}</strong>
-					{{pluralize}}
+					<strong>{{remainingCount}}</strong>
+					{{pluralize}} left.
 				</span>
+				<ul class="filters">
+					<li>
+						<a href="#all" :class="{selected : filter === 'all'}" @click.prevent="this.filter = 'all'">All</a>
+					</li>
+					<li>
+						<a href="#" :class="{selected : filter === 'active'}" @click.prevent="this.filter = 'active'">Active</a>
+					</li>
+					<li>
+						<a href="#" :class="{selected : filter === 'done'}" @click.prevent="this.filter = 'done'">Done</a>
+					</li>
+				</ul>
 			</footer>
 		</div>
 	</section>
@@ -33,6 +46,7 @@
 		data() {
 			return {
 				newTodo: '',
+				filter: 'all'
 			}
 		},
 
@@ -61,14 +75,25 @@
 		computed: {
 			...Vuex.mapGetters([
 				'todos',
-				'remaining'
+				'remaining',
+				'remainingCount',
+				'done'
 			]),
 			/**
 			 * Pluralize if there is more than one task to do.
 			 */
 			pluralize() {
-				return this.remaining <= 1 ? 'Task' : 'Tasks';
+				return this.remainingCount <= 1 ? 'Task' : 'Tasks';
 			},
+
+			filteredTodo() {
+				if(this.filter === 'active'){
+					return this.remaining;
+				}else if(this.filter === 'done'){				
+					return this.done;
+				}
+				return this.todos;
+			}
 		},
 
 		

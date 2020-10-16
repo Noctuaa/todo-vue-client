@@ -31,3 +31,17 @@ header h1 {
     display: flex;
     justify-content: center;
 }
+
+ul{
+    margin: 0;
+}
+
+li{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+

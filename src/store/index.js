@@ -6,7 +6,9 @@ export default createStore({
 	},
 	getters: {
 		todos: (state) => state.todos,
-		remaining: (state) => state.todos.filter(todo => !todo.completed).length
+		remaining: (state) => state.todos.filter(todo => !todo.completed),
+		remainingCount: (state, getters) => getters.remaining.length,
+		done: (state) => state.todos.filter(todo => todo.completed)
 	},
 	mutations: {
 		ADD_TODO(state, payload) {
