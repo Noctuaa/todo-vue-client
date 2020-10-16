@@ -13,7 +13,7 @@ body {
 }
 
 .hero {
-    background: linear-gradient(60deg, rgba(76, 98, 193, 1), rgba(76, 98, 193, 1), rgba(110, 76, 193, 1), rgba(110, 76, 193, 1));
+    background: linear-gradient(60deg, rgba($blue, 1), rgba($blue, 1), rgba($purple, 1), rgba($purple, 1));
     top: 0;
     position: absolute;
     width: 100%;
@@ -22,7 +22,7 @@ body {
 
 header h1 {
     text-align: center;
-    color: #ffff;
+    color: $white;
     filter: blur(.9px);
     font-size: 4rem;
 }
