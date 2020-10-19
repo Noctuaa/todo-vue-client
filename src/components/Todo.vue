@@ -24,13 +24,13 @@
 				</span>
 				<ul class="filters">
 					<li>
-						<a href="#all" :class="{selected : filter === 'all'}" @click.prevent="this.filter = 'all'">All</a>
+						<a href="#all" id="all" :class="{selected : filter === 'all'}" @click.prevent="this.filter = 'all'">All</a>
 					</li>
 					<li>
-						<a href="#" :class="{selected : filter === 'active'}" @click.prevent="this.filter = 'active'">Active</a>
+						<a href="#" id="active" :class="{selected : filter === 'active'}" @click.prevent="this.filter = 'active'">Active</a>
 					</li>
 					<li>
-						<a href="#" :class="{selected : filter === 'done'}" @click.prevent="this.filter = 'done'">Done</a>
+						<a href="#" id="done" :class="{selected : filter === 'done'}" @click.prevent="this.filter = 'done'">Done</a>
 					</li>
 				</ul>
 			</footer>
