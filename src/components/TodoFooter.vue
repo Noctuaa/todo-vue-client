@@ -1,15 +1,19 @@
 <script setup>
    import { useTodoStore } from '@/stores/todoStore';
    const todoStore = useTodoStore();
+
+   const filters = [
+      { key: 'all', label: 'Tous' },
+      { key: 'active', label: 'Actif' },
+      { key: 'completed', label: 'Compléter' }
+   ]
 </script>
 
 <template>
    <footer class="todo-footer d-flex j-content-between a-items-center">
       <span>{{ todoStore.remainingCount }} Tâches.</span>
       <nav class="todo-filters d-flex">
-         <button class="filter-btn active" aria-pressed="true">Tous</button>
-         <button class="filter-btn">Actif</button>
-         <button class="filter-btn">Compléter</button>
+         <button v-for="filter in filters" :key="filter.key" class="filter-btn"> {{ filter.label }}</button>
       </nav>
    </footer>
 </template>
