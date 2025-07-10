@@ -26,7 +26,28 @@ export const useTodoStore = defineStore("todo", {
                completed: false
             })
 
-            localStorage.setItem('todos', JSON.stringify(this.todos));
+            this.saveStorage()
+         }
+      },
+
+      /**
+       * Saves todos to localStorage.
+       * @returns {void}
+       */
+      saveStorage() {
+         localStorage.setItem('todos', JSON.stringify(this.todos))
+      },
+
+      /**
+      * Toggles the completed status of a todo item
+      * @param {number} todoId - The ID of the todo to toggle
+      * @returns {void}
+      */
+      toggleTodo(todoId) {
+         const todo = this.todos.find(t => t.id === todoId)
+         if (todo) {
+            todo.completed = !todo.completed
+            this.saveStorage()
          }
       },
    },

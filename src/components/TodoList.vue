@@ -3,12 +3,16 @@
 
     const todoStore = useTodoStore();
 
+    const handleToggle = (todoId) => {
+        todoStore.toggleTodo(todoId)
+    }
+
 </script>
 
 <template>
     <ul class="tasks" v-if="todoStore.allTodos.length > 0">
         <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.allTodos" :key="todo.id">
-            <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed">
+            <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
             <label class="task-label w-100">{{ todo.title }}</label>
             <button class="destroy btn-action" aria-label="Supprimer la tâche"></button>
         </li>
