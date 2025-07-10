@@ -14,7 +14,7 @@
 </script>
 
 <template>
-    <ul class="tasks" v-if="todoStore.filteredTodos.length > 0">
+    <ul class="tasks" v-if="todoStore.allTodos.length > 0">
         <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.filteredTodos" :key="todo.id">
             <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
             <label class="task-label w-100">{{ todo.title }}</label>
