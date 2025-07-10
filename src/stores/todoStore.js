@@ -50,6 +50,21 @@ export const useTodoStore = defineStore("todo", {
             this.saveStorage()
          }
       },
+
+      /** 
+       * Deletes a todo item by its ID.
+       * @param {number} todoId - The ID of the todo to delete
+       * @returns {void}
+       * @description This method finds the index of the todo with the given ID,
+       * removes it from the todos array if found, and saves the updated list to localStorage.
+       */
+      deleteTodo(todoId) {
+         const index = this.todos.findIndex(t => t.id === todoId)
+         if (index !== -1) {
+            this.todos.splice(index, 1)
+            this.saveStorage()
+         }
+      }
    },
 
    getters: { 

@@ -7,6 +7,10 @@
         todoStore.toggleTodo(todoId)
     }
 
+    const handleDelete = (todoId) => {
+        todoStore.deleteTodo(todoId)
+    }
+
 </script>
 
 <template>
@@ -14,7 +18,7 @@
         <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.allTodos" :key="todo.id">
             <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
             <label class="task-label w-100">{{ todo.title }}</label>
-            <button class="destroy btn-action" aria-label="Supprimer la tâche"></button>
+            <button class="destroy btn-action" aria-label="Supprimer la tâche" @click="handleDelete(todo.id)"></button>
         </li>
     </ul>
 </template>
