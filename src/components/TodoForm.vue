@@ -1,11 +1,15 @@
 <script setup>
+   import { ref } from 'vue';
+   import { useTodoStore } from '@/stores/todoStore';
 
+   const newTodo = ref('');
+   const todoStore = useTodoStore();
 </script>
 
 <template>
-   <form class="todo-form" @submit.prevent="addTodo">
+   <form class="todo-form" @submit.prevent="todoStore.addTodo(newTodo)">
       <input type="text" name="newTodo" id="newTodo" class="w-100" placeholder="Ajouter une nouvelle tâche..."
-			@keyup.enter="addTodo">
+		v-model="newTodo" required>
    </form>
 </template>
 
