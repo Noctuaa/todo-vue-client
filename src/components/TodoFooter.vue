@@ -1,10 +1,11 @@
 <script setup>
-
+   import { useTodoStore } from '@/stores/todoStore';
+   const todoStore = useTodoStore();
 </script>
 
 <template>
    <footer class="todo-footer d-flex j-content-between a-items-center">
-      <span>3 Tâches.</span>
+      <span>{{ todoStore.remainingCount }} Tâches.</span>
       <nav class="todo-filters d-flex">
          <button class="filter-btn active" aria-pressed="true">Tous</button>
          <button class="filter-btn">Actif</button>

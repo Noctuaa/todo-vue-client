@@ -74,6 +74,11 @@ export const useTodoStore = defineStore("todo", {
        */
       allTodos: (state) => state.todos,
 
+      /** 
+       * Returns the list of todos that are not completed.
+       * @returns {Array} List of active todos
+       */
+      remainingCount: (state) => state.todos.filter(todo => !todo.completed).length
    }
 
 })
