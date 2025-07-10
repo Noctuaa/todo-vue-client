@@ -1,0 +1,8 @@
+:root {
+  --purple: #4c62c1;
+  --purple-soft: #6e4cc1;
+  --background-input: rgb(255,255,255);
+  --border-color: #cccccc;
+  --text-color-soft: #fff;
+  --transition-fast: all .3s ease-in-out;
+}

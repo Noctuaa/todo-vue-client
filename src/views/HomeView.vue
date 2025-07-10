@@ -1,13 +1,66 @@
 <script setup>
-
+	import TodoForm from '@/components/TodoForm.vue';
+	import TodoList from '@/components/TodoList.vue';
+	import TodoFooter from '@/components/TodoFooter.vue';
 </script>
 
 <template>
-  <main>
-    <h1>Welcome to Your Vue.js App</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,
-      check out the
-    </p>
-  </main>
+	<main class="todo-app">
+    	<header class="text-center">
+      	<h1>Todo</h1>
+    	</header>
+
+   	<section class="todo-container">
+			<TodoForm/>
+			<div class="todolist">
+				<TodoList/>
+				<TodoFooter/>
+			</div>
+
+   	</section>
+	</main>
 </template>
+
+<style>
+
+	.todo-container{
+		width: 300px;
+	}
+
+	@media (min-width: 576px){
+		.todo-container{
+			width: 450px;
+		}
+	}
+
+	.todolist {
+		background-color: #fff;
+		z-index: 10;
+		position: relative;
+		border-radius: .25rem;
+	}
+
+	.todolist::after, .todolist::before {
+		background: #fff;
+		content: " ";
+		display: block;
+		height: 10px;
+		position: absolute;
+		border-radius: .25rem;
+	}
+
+	.todolist::after {
+		opacity: .3;
+		width: 90%;
+		left: 5%;
+		bottom: -14px;
+	}
+
+	.todolist::before {
+		opacity: .5;
+		width: 95%;
+		left: 2.5%;
+		bottom: -7px;
+	}
+
+</style>
