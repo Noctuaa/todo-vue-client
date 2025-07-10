@@ -1,12 +1,13 @@
 <script setup>
+    import { useTodoStore } from '@/stores/todoStore';
 
-    const todos = [{"id":0,"title":"Coucou","completed":false},{"id":1,"title":"Test","completed":false},{"id":2,"title":"Bim","completed":true}]
+    const todoStore = useTodoStore();
 
 </script>
 
 <template>
-    <ul class="tasks" v-if="todos.length > 0">
-        <li class="task d-flex a-items-center p-relative" v-for="todo in todos" :key="todo.id">
+    <ul class="tasks" v-if="todoStore.allTodos.length > 0">
+        <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.allTodos" :key="todo.id">
             <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed">
             <label class="task-label w-100">{{ todo.title }}</label>
             <button class="destroy btn-action" aria-label="Supprimer la tâche"></button>

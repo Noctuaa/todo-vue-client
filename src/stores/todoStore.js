@@ -29,6 +29,15 @@ export const useTodoStore = defineStore("todo", {
             localStorage.setItem('todos', JSON.stringify(this.todos));
          }
       },
+   },
+
+   getters: { 
+      /**
+       * Returns the list of todos based on the current filter.
+       * @returns {Array} Filtered list of todos
+       */
+      allTodos: (state) => state.todos,
+
    }
 
 })
