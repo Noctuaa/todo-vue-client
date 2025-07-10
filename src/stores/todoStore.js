@@ -64,7 +64,14 @@ export const useTodoStore = defineStore("todo", {
             this.todos.splice(index, 1)
             this.saveStorage()
          }
-      }
+      },
+
+      /**  
+       * Sets the current filter for displaying todos.
+       * @param {string} filter - The filter to set ('all', 'active', 'completed')
+       * @returns {void}
+       */
+      setFilter(filter) { this.filter = filter },
    },
 
    getters: { 
@@ -78,7 +85,23 @@ export const useTodoStore = defineStore("todo", {
        * Returns the list of todos that are not completed.
        * @returns {Array} List of active todos
        */
-      remainingCount: (state) => state.todos.filter(todo => !todo.completed).length
+      remainingCount: (state) => state.todos.filter(todo => !todo.completed).length,
+
+      /**  
+       * Returns the filtered list of todos based on the current filter.
+       * @returns {Array} Filtered list of todos
+       * @description This getter checks the current filter state and returns:
+       * - Only active todos if the filter is 'active'
+       * - Only completed todos if the filter is 'completed'
+       * If the filter is not recognized, it defaults to returning all todos.
+       */
+      filteredTodos: (state) => {
+         switch (state.filter) {
+            case 'active': return state.todos.filter(todo => !todo.completed);
+            case 'completed': return state.todos.filter(todo => todo.completed);
+            default: return state.todos; // 'all' or any other value
+         }
+      }
    }
 
 })
