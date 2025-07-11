@@ -50,7 +50,7 @@
 .tasks{
     padding: 0 20px;
     margin-top: 20px;
-    transition: height var(--duration-fast) ease-in-out;
+    transition: var(--duration-fast) height var(--duration-fast) ease-in-out;
     overflow: hidden;
 }
 
