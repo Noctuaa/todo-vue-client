@@ -15,7 +15,7 @@
 </script>
 
 <template>
-   <footer class="todo-footer d-flex j-content-between a-items-center">
+   <footer class="todo-footer d-flex j-content-between a-items-center" v-if="todoStore.allTodos.length > 0">
       <span>  
          {{ todoStore.remainingCount === 0 ? 'Aucune tâche' :  todoStore.remainingCount === 1 ? '1 tâche' : `${todoStore.remainingCount} tâches` }}.
       </span>
