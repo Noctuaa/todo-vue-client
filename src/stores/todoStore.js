@@ -42,6 +42,8 @@ export const useTodoStore = defineStore("todo", {
       * Toggles the completed status of a todo item
       * @param {number} todoId - The ID of the todo to toggle
       * @returns {void}
+      * @description This method finds the todo with the given ID,
+      * toggles its completed status, and saves the updated todos list to localStorage.
       */
       toggleTodo(todoId) {
          const todo = this.todos.find(t => t.id === todoId)
