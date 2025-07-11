@@ -4,10 +4,15 @@
 
    const newTodo = ref('');
    const todoStore = useTodoStore();
+
+   const handleSubmit = () => {
+      todoStore.addTodo(newTodo.value);
+      newTodo.value = ''; // Clear the input after adding a todo
+   }
 </script>
 
 <template>
-   <form class="todo-form" @submit.prevent="todoStore.addTodo(newTodo)">
+   <form class="todo-form" @submit.prevent="handleSubmit">
       <label for="newTodo" class="sr-only">Nouvelle tâche</label>
       <input type="text" name="newTodo" id="newTodo" class="w-100" placeholder="Ajouter une nouvelle tâche..."
 		v-model="newTodo" required>
