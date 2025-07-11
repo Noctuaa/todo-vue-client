@@ -51,8 +51,8 @@
 .tasks{
     padding: 0 20px;
     margin-top: 20px;
-      transition: height 0.3s ease-in-out;
-  overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    overflow: hidden;
 }
 
 .task{

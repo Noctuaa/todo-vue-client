@@ -5,13 +5,13 @@
 </script>
 
 <template>
-	<main class="todo-app">
+	<main class="todo-app d-flex f-direction-column a-items-center w-100">
     	<header class="text-center">
       	<h1>Todo</h1>
     	</header>
    	<section class="todo-container">
 			<TodoForm/>
-			<div class="todolist">
+			<div class="todolist p-relative">
 				<TodoList/>
 				<TodoFooter/>
 			</div>
@@ -22,10 +22,10 @@
 <style>
 
 	.todo-container{
-		width: 300px;
+		width: 100%;
 	}
 
-	@media (min-width: 576px){
+	@media (min-width: 450px){
 		.todo-container{
 			width: 450px;
 		}
@@ -34,7 +34,6 @@
 	.todolist {
 		background-color: #fff;
 		z-index: 10;
-		position: relative;
 		border-radius: .25rem;
 	}
 
