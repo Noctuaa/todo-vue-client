@@ -1,24 +1,9 @@
-<template>
-	<div class="hero">
-		<section class="container">		
-			<Todolist></Todolist>
-		</section>
-	</div>
-</template>
-
-<script>
-	import Todolist from './components/Todo.vue'
-
-	export default {
-		name: 'App',
-		components: {
-			Todolist
-		}
-	}
+<script setup>
 </script>
 
+<template>
+  <router-view />
+</template>
 
-
-<style lang="scss">
-	@import '@/sass/app.scss';
+<style scoped>
 </style>
