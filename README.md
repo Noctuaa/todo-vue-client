@@ -1,35 +1,63 @@
-# vue-project
+# TodoList Vue 3 - Migration et modernisation
 
-This template should help get you started developing with Vue 3 in Vite.
+## 📋 Description
 
-## Recommended IDE Setup
+Migration complète d'une TodoList de Vue 2 vers Vue 3 avec architecture moderne, performances optimisées et expérience utilisateur améliorée. Cette application de gestion de tâches utilise les dernières bonnes pratiques du développement Vue.js.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## ✨ Fonctionnalités
 
-## Customize configuration
+- ➕ **Ajouter des tâches** - Interface intuitive avec validation
+- ✅ **Marquer comme terminées** - Toggle avec animations fluides
+- 🗑️ **Supprimer des tâches** - Suppression avec confirmation visuelle
+- 🔍 **Filtrer les tâches** - Toutes, Actives, Terminées
+- 💾 **Sauvegarde automatique** - Persistance via localStorage
+- 🎭 **Animations fluides** - Transitions lors des ajouts/suppressions
+- ♿ **Accessibilité optimisée** - Compatible lecteurs d'écran
+- 📱 **Design responsive** - Adapté mobile et desktop
+- 🎨 **Interface moderne** - Design clean avec effets CSS
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🛠️ Technologies utilisées
 
-## Project Setup
+- **Vue 3** - Framework JavaScript avec Composition API
+- **Pinia** - State management moderne pour Vue
+- **Vite** - Build tool rapide et moderne
+- **Vitest** - Framework de tests unitaires
 
-```sh
+## 🚀 Installation et lancement
+
+### Prérequis
+- Node.js (version 16 ou supérieure)
+- npm ou yarn
+
+### Installation
+```bash
+# Cloner le repository
+git clone [url-du-repo]
+cd todo-vue-client
+
+# Installer les dépendances
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Lancer en mode développement
 npm run dev
-```
 
-### Compile and Minify for Production
-
-```sh
+# Build pour la production
 npm run build
 ```
+## 🧪 Tests
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+```bash
+# Lancer tous les tests
 npm run test:unit
+
 ```
+## 🔗 Liens utiles
+
+- [Vue 3 Documentation](https://vuejs.org/)
+- [Pinia Documentation](https://pinia.vuejs.org/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Demo en ligne](https://noctodo.nocdev.fr/)
+
+---
+
+**Développé avec Vue 3**
