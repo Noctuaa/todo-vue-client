@@ -86,8 +86,8 @@
 }
 
 .toggle-task:checked{
-    background-color: var(--purple);
-    border: 1px solid var(--purple);
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
     border: none;
 }
 
