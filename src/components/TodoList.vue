@@ -23,8 +23,8 @@
 <template>
     <TransitionGroup name="todo" tag="ul" class="tasks" v-if="todoStore.allTodos.length > 0" :style="{ height: tasksHeight + 'px' }">
         <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.filteredTodos" :key="todo.id">
-            <input class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
-            <label class="task-label w-100">{{ todo.title }}</label>
+            <input :id="`todo-${todo.id}`" :name="`todo-${todo.id}`" class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
+            <label :for="`todo-${todo.id}`" class="task-label w-100">{{ todo.title }}</label>
             <button class="destroy btn-action" aria-label="Supprimer la tâche" @click="handleDelete(todo.id)"></button>
         </li>
     </TransitionGroup>
