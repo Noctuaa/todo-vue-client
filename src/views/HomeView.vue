@@ -9,14 +9,12 @@
     	<header class="text-center">
       	<h1>Todo</h1>
     	</header>
-
    	<section class="todo-container">
 			<TodoForm/>
 			<div class="todolist">
 				<TodoList/>
 				<TodoFooter/>
 			</div>
-
    	</section>
 	</main>
 </template>
