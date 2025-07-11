@@ -13,7 +13,7 @@
     }
 
     const todoHeight = 55
-    
+    // Calculates the dynamic height for fluid transitions
     const tasksHeight = computed(() => {
         return todoStore.filteredTodos.length * todoHeight
     })
@@ -32,8 +32,9 @@
 
 <style>
 
+/* Transition styles for the todo list */
 .todo-enter-active, .todo-leave-active {
-  transition: all 0.3s ease;
+  transition: all var(--duration-fast) ease-in-out;
 }
 .todo-enter-from {
   opacity: 0;
@@ -43,15 +44,13 @@
   opacity: 0;
   transform: translateX(-10px);
 }
-.todo-move {
-  transition: transform 0.3s ease;
-}
 
 
+/* Task styles */
 .tasks{
     padding: 0 20px;
     margin-top: 20px;
-    transition: height 0.3s ease-in-out;
+    transition: height var(--duration-fast) ease-in-out;
     overflow: hidden;
 }
 
@@ -121,7 +120,7 @@
 /*===== BUTTON DESTROY ====*/
 
 .destroy {
-    background: #ff4954;
+    background: var(--warning);
     border: none;
     border-radius: 100%;
     cursor: pointer;

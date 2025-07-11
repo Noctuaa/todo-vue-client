@@ -7,7 +7,8 @@
 }
 
 body {
-  background: linear-gradient(60deg, var(--purple), var(--purple), var(--purple-soft), var(--purple-soft));
+  background: linear-gradient(60deg, var(--primary), var(--primary), var(--primary-soft), var(--primary-soft));
+  color: var(--text-primary);
   place-items: center;
   transition:
     color 0.5s;
@@ -52,7 +53,7 @@ a,
 h1{
   font-size: 4rem;
   margin: 64px 0;
-  color: var(--text-color-soft);
+  color: var(--text-secondary);
   filter: blur(.06rem);
 }
 

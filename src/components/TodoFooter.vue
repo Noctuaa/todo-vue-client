@@ -36,13 +36,13 @@
 
    .todo-filters{
       gap: 5px;
-      transition: all .3s ease-in;
+      transition: all var(--duration-fast) ease-in;
    }
 
    .todo-filters .active{
-      background-color: var(--purple);
-      color: var(--text-color-soft);
-      border-radius: .25rem;
+      background-color: var(--primary);
+      color: var(--text-secondary);
+      border-radius: var(--radius-md);
    }
 
    .filter-btn{

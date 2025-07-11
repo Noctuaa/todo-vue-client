@@ -8,6 +8,7 @@
 
 <template>
    <form class="todo-form" @submit.prevent="todoStore.addTodo(newTodo)">
+      <label for="newTodo" class="sr-only">Nouvelle tâche</label>
       <input type="text" name="newTodo" id="newTodo" class="w-100" placeholder="Ajouter une nouvelle tâche..."
 		v-model="newTodo" required>
    </form>
@@ -15,13 +16,13 @@
 
 <style>
    #newTodo{
-      background-color: var(--background-input);
+      background-color: var(--bg-input);
       opacity: .8;
       padding: .9em 1.25em;
       border: none;
-      transition: var(--transition-fast);
+      transition: var(--duration-fast) ease-in-out;
       font-size: 18px;
-      border-radius: .25rem;
+      border-radius: var(--radius-md);
    }
 
    #newTodo:focus{
