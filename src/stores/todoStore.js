@@ -31,25 +31,21 @@ export const useTodoStore = defineStore("todo", {
       },
 
       /**
-       * Saves todos to localStorage.
+       * Updates the title of an existing todo item.
+       * @param {number} todoId - The ID of the todo to update
+       * @param {string} newTitle - The new title for the todo
        * @returns {void}
+       * @description This method finds the todo with the given ID,
+       * updates its title with the trimmed newTitle, and saves to localStorage.
        */
-      saveStorage() {
-         localStorage.setItem('todos', JSON.stringify(this.todos))
-      },
+      updateTodo(todoid, newTitle) {
+         if(!newTitle && !newTitle.trim()) return;
 
-      /**
-      * Toggles the completed status of a todo item
-      * @param {number} todoId - The ID of the todo to toggle
-      * @returns {void}
-      * @description This method finds the todo with the given ID,
-      * toggles its completed status, and saves the updated todos list to localStorage.
-      */
-      toggleTodo(todoId) {
-         const todo = this.todos.find(t => t.id === todoId)
+         const todo = this.todos.find(t => t.id === todoid);
+
          if (todo) {
-            todo.completed = !todo.completed
-            this.saveStorage()
+            todo.title = newTitle.trim();
+            this.saveStorage();
          }
       },
 
@@ -68,12 +64,35 @@ export const useTodoStore = defineStore("todo", {
          }
       },
 
+      /**
+      * Toggles the completed status of a todo item
+      * @param {number} todoId - The ID of the todo to toggle
+      * @returns {void}
+      * @description This method finds the todo with the given ID,
+      * toggles its completed status, and saves the updated todos list to localStorage.
+      */
+      toggleTodo(todoId) {
+         const todo = this.todos.find(t => t.id === todoId)
+         if (todo) {
+            todo.completed = !todo.completed
+            this.saveStorage()
+         }
+      },
+
       /**  
        * Sets the current filter for displaying todos.
        * @param {string} filter - The filter to set ('all', 'active', 'completed')
        * @returns {void}
        */
       setFilter(filter) { this.filter = filter },
+
+      /**
+       * Saves todos to localStorage.
+       * @returns {void}
+       */
+      saveStorage() {
+         localStorage.setItem('todos', JSON.stringify(this.todos))
+      },
    },
 
    getters: { 

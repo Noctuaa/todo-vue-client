@@ -80,6 +80,36 @@ describe("TodoStore", () => {
       expect(store.allTodos).toHaveLength(initialLength)
    })
 
+   // Test for updating a todo
+   it('updates a todo title', () => {
+      store.addTodo('Original title')
+      const todoId = store.allTodos[0].id
+      
+      store.updateTodo(todoId, 'Updated title')
+      
+      expect(store.allTodos).toHaveLength(1)
+      expect(store.allTodos[0].title).toBe('Updated title')
+      expect(store.allTodos[0].completed).toBe(false) // Ensure completed status remains unchanged
+})
+
+   it('trims whitespace when updating', () => {
+      store.addTodo('Original')
+      const todoId = store.allTodos[0].id
+      
+      store.updateTodo(todoId, '  Updated title  ')
+      
+      expect(store.allTodos[0].title).toBe('Updated title')
+   })
+
+   it('does nothing when updating non-existent todo', () => {
+      store.addTodo('Test')
+      const initialState = [...store.allTodos]
+      
+      store.updateTodo(999, 'New title')
+      
+      expect(store.allTodos).toEqual(initialState)
+   })
+
    describe("getters", () => {
       beforeEach(() => {
          store.todos = [
