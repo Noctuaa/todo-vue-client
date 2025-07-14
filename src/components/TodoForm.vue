@@ -5,6 +5,10 @@
    const newTodo = ref('');
    const todoStore = useTodoStore();
 
+   /**
+    * Handles the form submission to add a new todo.
+    * It adds the new todo to the store and clears the input field.
+    */
    const handleSubmit = () => {
       todoStore.addTodo(newTodo.value);
       newTodo.value = ''; // Clear the input after adding a todo
@@ -23,7 +27,7 @@
    #newTodo{
       background-color: var(--bg-input);
       opacity: .8;
-      padding: .9em 1.25em;
+      padding: var(--spacing-4) var(--spacing-6);
       border: none;
       transition: var(--duration-fast) ease-in-out;
       font-size: 18px;

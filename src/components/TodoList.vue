@@ -1,18 +1,72 @@
 <script setup>
-    import { computed,TransitionGroup } from 'vue';
+    import { ref, computed, nextTick, useTemplateRef } from 'vue';
     import { useTodoStore } from '@/stores/todoStore';
 
     const todoStore = useTodoStore();
+    const todoHeight = 55; // Height of each todo item in pixels
+    const editingId = ref(null);
+    const editingTitle = ref('');
+    const editInput = useTemplateRef('editInput');
 
+    /** 
+     * Starts editing a todo item.
+     * Sets the editingId to the todo's id and initializes editingTitle with the todo's title.
+     * After the next DOM update, focuses the input field for editing.
+     * @param {Object} todo - The todo item to edit.
+     * @returns {Promise<void>}
+     * @async
+     */
+    const startEdit = async (todo) => {
+        editingId.value = todo.id
+        editingTitle.value = todo.title
+        
+        await nextTick()
+        
+        if (editInput.value && editInput.value[0]) {
+            editInput.value[0].focus()
+            editInput.value[0].select()
+        }
+    }
+
+    /**
+     * Saves the edited todo item.
+     * Updates the todo with the current editingId and editingTitle.
+     * Resets editingId and editingTitle to their initial states.
+     */
+    const saveEdit = () => {
+        todoStore.updateTodo(editingId.value, editingTitle.value);
+        editingId.value = null
+        editingTitle.value = '';
+    }
+
+    /**
+     * Cancels the editing of a todo item.
+     * Resets editingId and editingTitle to their initial states.
+     */
+    const cancelEdit = () => {
+        editingId.value = null
+        editingTitle.value = ''
+    }
+
+    /**
+     * Toggles the completion status of a todo item.
+     * Calls the toggleTodo method from the todoStore with the todo's id.
+     * @param {number} todoId - The id of the todo item to toggle.
+     */
     const handleToggle = (todoId) => {
         todoStore.toggleTodo(todoId)
     }
 
+    /**
+     * Deletes a todo item.
+     * Calls the deleteTodo method from the todoStore with the todo's id.
+     * @param {number} todoId - The id of the todo item to delete.
+     */
     const handleDelete = (todoId) => {
         todoStore.deleteTodo(todoId)
     }
 
-    const todoHeight = 55
+
     // Calculates the dynamic height for fluid transitions
     const tasksHeight = computed(() => {
         return todoStore.filteredTodos.length * todoHeight
@@ -21,47 +75,68 @@
 </script>
 
 <template>
-    <TransitionGroup name="todo" tag="ul" class="tasks" v-if="todoStore.allTodos.length > 0" :style="{ height: tasksHeight + 'px' }">
-        <li class="task d-flex a-items-center p-relative" v-for="todo in todoStore.filteredTodos" :key="todo.id">
-            <input :id="`todo-${todo.id}`" :name="`todo-${todo.id}`" class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
-            <label :for="`todo-${todo.id}`" class="task-label w-100">{{ todo.title }}</label>
-            <button class="destroy btn-action" aria-label="Supprimer la tâche" @click="handleDelete(todo.id)"></button>
+    <ul name="todo" tag="ul" class="tasks" v-if="todoStore.allTodos.length > 0" :style="{ height: tasksHeight + 'px' }">
+        <li :class="['task', 'd-flex', 'a-items-center', 'p-relative', { 'editing': editingId === todo.id }]" v-for="todo in todoStore.filteredTodos" :key="todo.id">
+            <div class="edit-container w-100 h-100 d-flex a-items-center" v-if="editingId === todo.id">
+                <div class="toggle-placeholder"></div>
+                <input ref="editInput" type="text" class="edit-input w-100" v-model="editingTitle" @keyup.escape="cancelEdit" @keyup.enter="saveEdit" @blur="saveEdit" aria-label="Modifier la tâche" />
+            </div>
+            <template v-else>
+                <input :id="`todo-${todo.id}`" :name="`todo-${todo.id}`" class="toggle-task btn-action" type="checkbox" :checked="todo.completed" @change="handleToggle(todo.id)" aria-label="Marquer la tâche comme terminée">
+                <label class="task-label w-100" @dblclick="startEdit(todo)">{{ todo.title }}</label>
+                <button class="destroy btn-action" aria-label="Supprimer la tâche" @click="handleDelete(todo.id)"></button>
+            </template>
         </li>
-    </TransitionGroup>
+    </ul>
 </template>
 
 <style>
 
-/* Transition styles for the todo list */
-.todo-enter-active, .todo-leave-active {
-  transition: all var(--duration-fast) ease-in-out;
-}
-.todo-enter-from {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-.todo-leave-to {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-
-
 /* Task styles */
 .tasks{
-    padding: 0 20px;
-    margin-top: 20px;
-    transition: var(--duration-fast) height var(--duration-fast) ease-in-out;
+    padding: 0;
+    margin-top: var(--spacing-5);
+    transition: height var(--duration-fast) ease-in-out;
     overflow: hidden;
 }
 
 .task{
     list-style: none;
-    padding: 15px 0;
+    padding: var(--spacing-4) var(--spacing-5);
     height: 55px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.task:hover .destroy{
-    opacity: 1;   
+.task:last-child{
+    border-bottom: none;
+}
+
+.task.editing, .task-label {
+    padding: var(--spacing-1);
+}
+
+.edit-container {
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-md);
+    background: transparent;
+}
+
+.edit-input {
+    background: transparent;
+    border: none; 
+    outline: none;
+    padding: 0 var(--spacing-5);
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.task-label{
+    cursor: text;
+    border-radius: 3px;
+}
+
+.task-label:hover{
+    opacity:  .7;
 }
 
 .btn-action{
@@ -74,12 +149,15 @@
 
 /*===== BUTTON COMPLETED ====*/
 
-.toggle-task{
-    cursor: pointer;
-    appearance: none;
+.toggle-task, .toggle-placeholder{
     width: 30px;
     height: 25px;
     margin-right: 1em;
+}
+
+.toggle-task{
+    cursor: pointer;
+    appearance: none;
     border-radius:50%;
     border: 1px solid var(--border-color);
     transition: var(--transition-fast);
@@ -149,5 +227,9 @@
 
 .destroy:after {
     transform: rotate(45deg);
+}
+
+.task:hover .destroy{
+    opacity: 1;   
 }
 </style>
