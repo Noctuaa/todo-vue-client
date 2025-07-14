@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed, TransitionGroup, nextTick, useTemplateRef } from 'vue';
+    import { ref, computed, nextTick, useTemplateRef } from 'vue';
     import { useTodoStore } from '@/stores/todoStore';
 
     const todoStore = useTodoStore();
@@ -75,7 +75,7 @@
 </script>
 
 <template>
-    <TransitionGroup name="todo" tag="ul" class="tasks" v-if="todoStore.allTodos.length > 0" :style="{ height: tasksHeight + 'px' }">
+    <ul name="todo" tag="ul" class="tasks" v-if="todoStore.allTodos.length > 0" :style="{ height: tasksHeight + 'px' }">
         <li :class="['task', 'd-flex', 'a-items-center', 'p-relative', { 'editing': editingId === todo.id }]" v-for="todo in todoStore.filteredTodos" :key="todo.id">
             <div class="edit-container w-100 h-100 d-flex a-items-center" v-if="editingId === todo.id">
                 <div class="toggle-placeholder"></div>
@@ -87,30 +87,16 @@
                 <button class="destroy btn-action" aria-label="Supprimer la tâche" @click="handleDelete(todo.id)"></button>
             </template>
         </li>
-    </TransitionGroup>
+    </ul>
 </template>
 
 <style>
-
-/* Transition styles for the todo list */
-.todo-enter-active, .todo-leave-active {
-  transition: all var(--duration-fast) ease-in-out;
-}
-.todo-enter-from {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-.todo-leave-to {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-
 
 /* Task styles */
 .tasks{
     padding: 0;
     margin-top: var(--spacing-5);
-    transition: var(--duration-fast) height var(--duration-fast) ease-in-out;
+    transition: height var(--duration-fast) ease-in-out;
     overflow: hidden;
 }
 
