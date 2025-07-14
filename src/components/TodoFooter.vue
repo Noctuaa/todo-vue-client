@@ -2,12 +2,21 @@
    import { useTodoStore } from '@/stores/todoStore';
    const todoStore = useTodoStore();
 
+   /**
+    * Filters for the todo items.
+    * Each filter has a key and a label for display.
+    */
    const filters = [
       { key: 'all', label: 'Tous' },
       { key: 'active', label: 'Actives' },
       { key: 'completed', label: 'Terminées' }
    ]
 
+   /**
+    * Handles the filter change.
+    * Updates the todoStore's filter based on the selected filter key.
+    * @param {string} filter - The key of the filter to apply.
+    */
    const handleFilter = (filter) => {
       todoStore.setFilter(filter)
    }
