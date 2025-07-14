@@ -31,11 +31,11 @@
 <style>
    .todo-footer {
       border-top: 1px solid var(--border-color);
-      padding: .6em .9em;
+      padding: var(--spacing-3) var(--spacing-4);
    }
 
    .todo-filters{
-      gap: 5px;
+      gap: var(--spacing-1);
       transition: all var(--duration-fast) ease-in;
    }
 
@@ -46,7 +46,7 @@
    }
 
    .filter-btn{
-      padding: .5em .6em;
+      padding: var(--spacing-2);
       font-size: .9rem;
       background: none;
       border:none;

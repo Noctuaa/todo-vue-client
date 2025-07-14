@@ -34,7 +34,7 @@
 	.todolist {
 		background-color: #fff;
 		z-index: 10;
-		border-radius: .25rem;
+		border-radius: var(--radius-md);
 	}
 
 	.todolist::after, .todolist::before {
@@ -43,7 +43,7 @@
 		display: block;
 		height: 10px;
 		position: absolute;
-		border-radius: .25rem;
+		border-radius: var(--radius-md)
 	}
 
 	.todolist::after {

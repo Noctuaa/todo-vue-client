@@ -23,7 +23,7 @@
    #newTodo{
       background-color: var(--bg-input);
       opacity: .8;
-      padding: .9em 1.25em;
+      padding: var(--spacing-4) var(--spacing-6);
       border: none;
       transition: var(--duration-fast) ease-in-out;
       font-size: 18px;
